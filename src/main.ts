@@ -291,37 +291,37 @@ const appVM: AppVM = {
           ],
         },
       ],
-      selected: {
-        title: 'Order <CustomerOrderID> is closed',
-        description:
-          'The order <OrderID> is not completed and 8 minutes from the required finishing time.',
-        eyebrow: 'ORD4567',
-        subtitle: '230705-1234',
-        instructions: [
-          'Dock door is not assigner for <fulfilment stream> package(s) and <minutes> past schedule start time',
-        ],
-        tabs: [
-          {
-            label: 'Details',
-            details: {
-              created: 0,
-              loadId: '125653535',
-              packageId: 'PSD245678945',
-              priority: 'Critical',
-              orderId: 'ORD4567',
-            },
+    },
+    selected: {
+      title: 'Order <CustomerOrderID> is closed',
+      description:
+        'The order <OrderID> is not completed and 8 minutes from the required finishing time.',
+      eyebrow: 'ORD4567',
+      subtitle: '230705-1234',
+      instructions: [
+        'Dock door is not assigner for <fulfilment stream> package(s) and <minutes> past schedule start time',
+      ],
+      tabs: [
+        {
+          label: 'Details',
+          details: {
+            created: 0,
+            loadId: '125653535',
+            packageId: 'PSD245678945',
+            priority: 'Critical',
+            orderId: 'ORD4567',
           },
-          {
-            label: 'Activity',
-          },
-          {
-            label: 'Comments',
-          },
-          {
-            label: 'Related alerts',
-          },
-        ],
-      },
+        },
+        {
+          label: 'Activity',
+        },
+        {
+          label: 'Comments',
+        },
+        {
+          label: 'Related alerts',
+        },
+      ],
     },
   },
 };

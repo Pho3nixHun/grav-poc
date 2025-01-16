@@ -1,11 +1,13 @@
 import van from 'vanjs-core';
 import { AlertOverviewPageVM } from './alert-overview.model.ts';
 import { AlertListGroupedComponent } from './components/alertlist-grouped/alertlist-grouped.component.ts';
+import { AlertDetailsComponent } from '_/pages/alert-overview/components/alert-details/alert-details.component.ts';
 
 const {
   main,
   h1,
   div,
+  section,
   'md-outlined-segmented-button-set': mdOutlinedSegmentedButtonSet,
   'md-outlined-segmented-button': mdOutlinedSegmentedButton,
   'md-filled-select': mdFilledSelect,
@@ -21,7 +23,7 @@ export const AlertOverviewPage = (vm: AlertOverviewPageVM) =>
       { class: 'md-typescale-display-medium' },
       vm.title,
     ),
-    div(
+    section(
       { class: 'flex flex-row items-center' },
       div(
         { class: 'flex-grow' },
@@ -63,5 +65,9 @@ export const AlertOverviewPage = (vm: AlertOverviewPageVM) =>
         ),
       ),
     ),
-    AlertListGroupedComponent(vm.alertList),
+    section(
+      { class: 'flex flex-row gap-2 surface-high overflow-x-auto' },
+      AlertListGroupedComponent(vm.alertList),
+      AlertDetailsComponent(vm.selected),
+    ),
   );

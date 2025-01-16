@@ -1,0 +1,20 @@
+{
+   "HOT": {
+      "BundleName": "main.bundle.js",
+      "DEV": true,
+      "Entry": [
+         "./src/main.ts"
+      ],
+      "Minify": false,
+      "OutPath": "dist",
+      "Port": 3000,
+      "Serve": "dist",
+      "HtmlName": "index.html",
+      "Watch": [
+         "src",
+         "dist",
+         "index.html",
+         "material.theme.css"
+      ]
+   }
+}

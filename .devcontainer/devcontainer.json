@@ -1,0 +1,43 @@
+{
+	"name": "Deno",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "yarn install",
+
+	// Configure tool-specific properties.
+	"customizations": {
+	  "vscode": {
+		"extensions": [
+		  "denoland.vscode-deno"
+		],
+		"settings": {
+		  "terminal.integrated.fontFamily": "MesloLGS NF",
+		  "terminal.integrated.shell.linux": "/bin/zsh",
+		  "editor.fontFamily": "JetBrains Mono",
+		  "editor.fontLigatures": true,
+		  "editor.formatOnSave": true,
+		  "deno.enable": true,
+		  "deno.lint": true,
+		  "[typescript]": { "editor.defaultFormatter": "denoland.vscode-deno" }
+		}
+	  }
+	},
+	"features": {
+		"ghcr.io/joshuanianji/devcontainer-features/github-cli-persistence:1": {},
+		// "ghcr.io/devcontainers-extra/features/vscode-server:1": {},
+		"ghcr.io/devcontainers-extra/features/vscode-cli:1": {}
+	},
+	"workspaceFolder": "/app",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached"
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

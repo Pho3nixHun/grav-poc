@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="material.theme.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="src/main.bundle.js" type="module"> </script>
+    <title>Document</title>
+</head>
+<body class="light surface md-typescale-body-medium h-screen flex flex-col">
+    <nav class="dark surface">
+        <ul class="flex flex-row">
+            <li class="flex-grow">
+
+            </li>
+            <li>
+                <md-icon-button>
+                    <md-icon>search</md-icon>
+                </md-icon-button>
+            </li>
+            <li>
+                <md-icon-button>
+                    <md-icon>help</md-icon>
+                </md-icon-button>
+            </li>
+            <li>
+                <md-icon-button>
+                    <md-icon>settings</md-icon>
+                </md-icon-button>
+            </li>
+            <li>
+                <md-icon-button>
+                    <md-icon>mail</md-icon>
+                </md-icon-button>
+            </li>
+            <li>
+                <md-icon-button>
+                    <md-icon>account_circle</md-icon>
+                </md-icon-button>
+            </li>
+        </ul>
+    </nav>
+    <section class="flex flex-row flex-grow">
+        <nav class="surface-variant px-2">
+            <ul class="flex flex-col justify-strech">
+                <li>
+                    <md-navigation-tab
+                    label="Dashboard">
+                        <md-icon slot="active-icon">dashboard</md-icon>
+                        <md-icon slot="inactive-icon">dashboard</md-icon>
+                    </md-navigation-tab>
+                </li>
+                <li>
+                    <md-navigation-tab
+                    active
+                    label="Alerts">
+                        <md-icon slot="active-icon">error</md-icon>
+                        <md-icon slot="inactive-icon">error</md-icon>
+                    </md-navigation-tab>
+                </li>
+                <li>
+                    <md-navigation-tab
+                    label="Inbox">
+                        <md-icon slot="active-icon">inbox_text</md-icon>
+                        <md-icon slot="inactive-icon">inbox_text</md-icon>
+                    </md-navigation-tab>
+                </li>
+                <li>
+                    <md-navigation-tab label="Reports">
+                        <md-icon slot="active-icon">calendar_today</md-icon>
+                        <md-icon slot="inactive-icon">calendar_today</md-icon>
+                    </md-navigation-tab>
+                </li>
+                <li>
+                    <md-navigation-tab label="Map">
+                        <md-icon slot="active-icon">map</md-icon>
+                        <md-icon slot="inactive-icon">map</md-icon>
+                    </md-navigation-tab>
+                </li>
+                <li>
+                    <md-navigation-tab label="Process">
+                        <md-icon slot="active-icon">automation</md-icon>
+                        <md-icon slot="inactive-icon">automation</md-icon>
+                    </md-navigation-tab>
+                </li>
+                <li>
+                    <md-navigation-tab label="Inventory">
+                        <md-icon slot="active-icon">inventory_2</md-icon>
+                        <md-icon slot="inactive-icon">inventory_2</md-icon>
+                    </md-navigation-tab>
+                </li>
+                <li>
+                    <md-navigation-tab label="Workstations">
+                        <md-icon slot="active-icon">precision_manufacturing</md-icon>
+                        <md-icon slot="inactive-icon">precision_manufacturing</md-icon>
+                    </md-navigation-tab>
+                </li>
+                <li>
+                    <md-navigation-tab label="Storage">
+                        <md-icon slot="active-icon">layers</md-icon>
+                        <md-icon slot="inactive-icon">layers</md-icon>
+                    </md-navigation-tab>
+                </li>
+            </ul>
+        </nav>
+        <main class="flex flex-col flex-grow">
+            <h1 class="md-typescale-display-medium"> Alert Overview </h1>
+        </main>
+    </section>
+</body>
+</html>

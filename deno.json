@@ -1,0 +1,16 @@
+{
+  "tasks": {
+    "dev": "deno run -A jsr:@akiraohgaki/devsrv/serve ./",
+    "hot": "deno run -A jsr:@ndh/hot",
+    "dev2": "deno run --allow-net --allow-read jsr:@ero/dev --port=3000"
+  },
+  "imports": {
+    "@fontsource/roboto": "npm:@fontsource/roboto@^5.1.1",
+    "@material/web": "npm:@material/web@^2.2.0"
+  },
+  "compilerOptions": {
+    "lib": [
+      "dom"
+    ]
+  }
+}

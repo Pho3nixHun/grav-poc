@@ -6,5 +6,5 @@ export * from './components/nav/nav.model.ts';
 export interface AppVM {
   nav: NavVM;
   sidebar: SidebarVM;
-  alertOverviewPage: AlertOverviewPageVM;
+  alertOverviewPage?: AlertOverviewPageVM;
 }

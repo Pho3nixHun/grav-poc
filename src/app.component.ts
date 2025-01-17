@@ -21,7 +21,7 @@ export const AppComponent = (vm: AppVM) =>
       SidebarComponent(vm.sidebar),
       main(
         { class: 'flex flex-col flex-grow' },
-        AlertOverviewPage(vm.alertOverviewPage),
+        vm.alertOverviewPage ? AlertOverviewPage(vm.alertOverviewPage) : ''
       ),
     ),
   );

@@ -23,9 +23,11 @@ ul {
 .flex-grow {
     flex-grow: 1;
 }
+
 .flex-shrink {
     flex-shrink: 1;
 }
+
 .flex-1 {
     flex: 1 1 0%;
 }
@@ -33,9 +35,11 @@ ul {
 .gap-1 {
     gap: 0.5rem;
 }
+
 .gap-2 {
     gap: 1rem;
 }
+
 .gap-3 {
     gap: 2rem;
 }
@@ -43,42 +47,54 @@ ul {
 .justify-strech {
     justify-content: stretch;
 }
+
 .justify-end {
     justify-content: flex-end;
 }
+
 .items-center {
     align-items: center;
 }
+
 .px-1 {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
+
 .p-2 {
     padding: 1rem;
 }
+
 .px-2 {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
 .py-2 {
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
+
 .pl-2 {
     padding-left: 1rem;
 }
+
 .pt-2 {
     padding-top: 1rem;
 }
+
 .pl-3 {
     padding-left: 2rem;
 }
+
 .pr-2 {
     padding-right: 1rem;
 }
+
 .pr-3 {
     padding-right: 2rem;
 }
+
 .px-3 {
     padding-left: 2rem;
     padding-right: 2rem;
@@ -94,6 +110,14 @@ ul {
 
 .max-w-fit {
     max-width: fit-content;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.bg-white {
+    background-color: white;
 }
 
 .max-w-ch-120 {
@@ -114,4 +138,44 @@ ul {
 
 .text-info {
     color: var(--md-extended-color-info-color);
+}
+
+.text-red {
+    color: red
+}
+
+.text-id {
+    color: blue;
+    text-decoration: underline;
+}
+
+table {
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th,
+td {
+    border-top: 1px solid rgb(223 227 231);
+    border-bottom: 1px solid rgb(223 227 231);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+th {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.missing-material {
+    color: orange;
+    font-weight: bolder;
+    font-size: xx-large;
+    border: 1px solid black;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
 }

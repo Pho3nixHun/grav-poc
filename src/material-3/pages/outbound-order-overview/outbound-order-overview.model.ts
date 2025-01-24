@@ -18,5 +18,10 @@ export interface OutboundOrderOverviewPageVM {
   day: number;
   charts: string[];
   pageSize: number;
-  datatable: Order[];
+  datatable: DataTable;
+}
+
+export interface DataTable {
+  titles: string[]
+  orders: Order[]
 }

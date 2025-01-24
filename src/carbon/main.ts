@@ -2,6 +2,7 @@ import './carbon.theme.css';
 import '@carbon/web-components/es';
 import van from 'vanjs-core';
 import { AlertItemPriority } from './app.model.ts';
+import {AlertDetailsComponent} from './pages/alert-overview/components/alert-details/alert-details.component.ts'
 import { Icon } from './icon-helper.util.ts';
 import { NavComponent } from './components/nav/nav.component.ts';
 import { SidebarComponent } from './components/sidebar/sidebar.component.ts';
@@ -458,7 +459,7 @@ const alertList = cdsLayer(
     ),
   ),
 );
-const alertDetails = div('Alert details');
+const alertDetails = AlertDetailsComponent(appVM.alertOverviewPage.selected)
 
 export const alertOverviewApp = main(
   header,

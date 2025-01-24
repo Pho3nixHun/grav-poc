@@ -3,6 +3,7 @@ import { NavComponent } from './components/nav/nav.component.ts';
 import { AppVM } from './app.model.ts';
 import { SidebarComponent } from './components/sidebar/sidebar.component.ts';
 import { AlertOverviewPage } from './pages/alert-overview/alert-overview.page.ts';
+import { OutboundOrderOverviewPage } from './pages/outbound-order-overview/outbound-order-overview.page.ts';
 
 const {
   div,
@@ -21,7 +22,8 @@ export const AppComponent = (vm: AppVM) =>
       SidebarComponent(vm.sidebar),
       main(
         { class: 'flex flex-col flex-grow' },
-        vm.alertOverviewPage ? AlertOverviewPage(vm.alertOverviewPage) : ''
+        vm.alertOverviewPage ? AlertOverviewPage(vm.alertOverviewPage) : '',
+        vm.outboundOrderOverviewPage ? OutboundOrderOverviewPage(vm.outboundOrderOverviewPage) : ''
       ),
     ),
   );

@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@carbon/charts": "^1.22.15",
     "@carbon/icon-helpers": "^10.54.0",
     "@carbon/icons": "^11.53.0",
     "@carbon/web-components": "^2.21.0",

@@ -2,17 +2,32 @@ import './carbon.theme.css';
 import '@carbon/web-components/es';
 import van from 'vanjs-core';
 import { AlertItemPriority } from './app.model.ts';
-import {AlertDetailsComponent} from './pages/alert-overview/components/alert-details/alert-details.component.ts'
+import { AlertDetailsComponent } from './pages/alert-overview/components/alert-details/alert-details.component.ts'
 import { Icon } from './icon-helper.util.ts';
 import { NavComponent } from './components/nav/nav.component.ts';
 import { SidebarComponent } from './components/sidebar/sidebar.component.ts';
 import { RelativeTimePipe } from '_/pipes/relative-time/relative-time.pipe.ts';
+import { OrderStatus } from './pages/outbound-order-overview/outbound-order-overview.model.ts';
+import { format } from "https://esm.sh/date-fns@4.1.0";
+import { GroupedBarChart } from '@carbon/charts'
+import '@carbon/charts/styles.css'
+
+
 const {
   h1,
   div,
   main,
   section,
   span,
+  table,
+  thead,
+  tr,
+  td,
+  th,
+  tbody,
+  ul,
+  li,
+  button,
   'cds-header': cdsHeader,
   'cds-header-name': cdsHeaderName,
   'cds-header-global-action': cdsHeaderGlobalAction,
@@ -41,7 +56,11 @@ const {
   'cds-overflow-menu': cdsOverflowMenu,
   'cds-overflow-menu-body': cdsOverflowMenuBody,
   'cds-overflow-menu-item': cdsOverflowMenuItem,
+  'cds-checkbox': cdsCheckbox,
+  'cds-date-picker': cdsDatePicker,
+  'cds-date-picker-input': cdsDatePickerInput,
 } = van.tags;
+
 const appVM = {
   nav: {
     items: [
@@ -380,7 +399,7 @@ const filters = div(
   cdsContentSwitcher(
     { value: '1', style: 'width: fit-content' },
     cdsContentSwitcherItem({ value: '1', selected: '' }, 'Grouped'),
-    cdsContentSwitcherItem({ value: '2' },'Flat list'),
+    cdsContentSwitcherItem({ value: '2' }, 'Flat list'),
   ),
   div({ class: 'flex-1' }),
   div(
@@ -406,9 +425,9 @@ const sideNav = SidebarComponent(appVM.sidebar);
 const alertList = cdsLayer(
   cdsStack(
     { orientation: 'vertical', gap: '4' },
-    ...appVM.alertOverviewPage.alertList.items.map((item) => 
+    ...appVM.alertOverviewPage.alertList.items.map((item) =>
       cdsExpandableTile(
-        { },
+        {},
         cdsTileAboveTheFoldContent(
           div(
             { class: 'flex flex-row items-center gap-1 pr-3' },
@@ -478,3 +497,346 @@ export const alertOverviewApp = main(
     ),
   ),
 );
+
+
+const outboundVM = {
+  nav: {
+    items: [
+      { icon: 'Search20', label: 'Search' },
+      { icon: 'Help20', label: 'Help' },
+      { icon: 'Settings20', label: 'Settings' },
+      { icon: 'Notification20', label: 'Notifications' },
+      { icon: 'UserAvatar20', label: 'Profile' },
+    ],
+  },
+  sidebar: {
+    items: [
+      { label: 'Dashboard', icon: 'Template16' },
+      { label: 'Alerts', icon: 'Warning16' },
+      {
+        label: 'Process',
+        icon: 'FlowData16',
+        active: true,
+        items: [
+          { label: 'Item 1' },
+          { label: 'Item 2' },
+        ],
+      },
+      {
+        label: 'Inventory',
+        icon: 'Box16',
+        items: [
+          { label: 'Item 1' },
+          { label: 'Item 2' },
+          { label: 'Item 3' },
+        ],
+      },
+      {
+        label: 'Workstations',
+        icon: 'Screen16',
+        items: [
+          { label: 'Item 1' },
+        ],
+      },
+      {
+        label: 'Storage',
+        icon: 'Layers16',
+        items: [
+          { label: 'Item 1' },
+          { label: 'Item 2' },
+        ],
+      },
+    ],
+  },
+  outboundOrderOverviewPage: {
+    title: 'Outbound order overview',
+    day: 9,
+    pageSize: 10,
+    charts: ['Total vs closed orders/hour', 'Timeliness/mins'],
+    datatable: {
+      titles: ['Order ID', 'Created on', 'RFT', 'Order timeliness', 'Order status'],
+      orders: [
+        {
+          selected: false,
+          createdOn: 1686278460000,
+          rft: 1686282060000,
+          timeliness: 10,
+          status: OrderStatus.Picking
+        },
+        {
+          selected: false,
+          createdOn: 1686278520000,
+          rft: 1686282120000,
+          status: OrderStatus.Picking
+        },
+        {
+          selected: false,
+          createdOn: 1686278700000,
+          rft: 1686282300000,
+          status: OrderStatus.Picking
+        },
+        {
+          selected: false,
+          createdOn: 1686278700000,
+          rft: 1686282300000,
+          status: OrderStatus.Picking
+        },
+        {
+          selected: false,
+          createdOn: 1686279000000,
+          rft: 1686282600000,
+          status: OrderStatus.Picking
+        },
+        {
+          selected: false,
+          createdOn: 1686279300000,
+          rft: 1686282900000,
+          status: OrderStatus.Picking
+        },
+        {
+          selected: false,
+          createdOn: 1686279300000,
+          rft: 1686282900000,
+          status: OrderStatus.Picking
+        },
+        {
+          selected: false,
+          createdOn: 1686279300000,
+          rft: 1686282900000,
+          status: OrderStatus.Assigned
+        },
+        {
+          selected: true,
+          createdOn: 1686279360000,
+          rft: 1686282960000,
+          timeliness: 6,
+          status: OrderStatus.Released
+        },
+        {
+          selected: true,
+          createdOn: 1686279360000,
+          rft: 1686282960000,
+          status: OrderStatus.Planned
+        },
+      ]
+    },
+  }
+};
+
+const outboundSideNav = SidebarComponent(outboundVM.sidebar)
+const outboundFilters = div(
+  { class: 'flex flex-row', style: 'justify-content: space-between' },
+  div(
+    { class: 'flex flex-row items-center gap-2' },
+    cdsIconButton(
+      { kind: 'first' },
+      Icon('ChevronLeft32', { slot: 'icon' }),
+    ),
+    cdsDatePicker({ label: 'Date range' },
+      cdsDatePickerInput({
+        placeholder: "mm/dd/yyyy"
+      },
+      )
+    ),
+    cdsIconButton(
+      { kind: 'first' },
+      Icon('ChevronRight32', { slot: 'icon' }),
+    ),
+  ),
+  div(
+    { class: 'flex flex-row gap-2' },
+    cdsTextInput({ placeholder: 'Search' }),
+    cdsIconButton(
+      { kind: 'first', 'label': 'Filter' },
+      Icon('Filter16', { slot: 'icon' }),
+      span({ slot: 'tooltip-content' }, 'Filter'),
+    ),
+    cdsOverflowMenu(
+      cdsIconButton(
+        { kind: 'first', 'label': 'Options' },
+        Icon('OverflowMenuHorizontal32', { slot: 'icon', kind: 'first' }),
+        span({ slot: "tooltip-content" }, "Options"),
+      ),
+      cdsOverflowMenuBody(
+        { flipped: "true" },
+        cdsOverflowMenuItem('Rush order'),
+        cdsOverflowMenuItem('Cancel order'),
+      )
+    )
+  )
+)
+
+
+export const outboundOrderOverviewApp = main(
+  header,
+  section(
+    { class: 'flex' },
+    outboundSideNav,
+    cdsStack(
+      { orientation: 'vertical', gap: '6', style: 'padding: 4rem 4rem 0 6rem; width: 100%' },
+      h1(outboundVM.outboundOrderOverviewPage.title),
+      outboundFilters,
+      section(
+        { class: 'flex flex-row', style: 'justify-content: space-evenly' },
+        div(
+          { id: 'leftChart' }),
+        div(
+          { id: 'rightChart' }),
+      ),
+      section(
+        { class: 'flex flex-row gap-2 surface-high overflow-x-auto' },
+        table(
+          { class: 'w-full bg-white ' },
+          thead(
+            tr(
+              th({ class: "px-3", style: 'width: 6rem;' },
+                cdsCheckbox()),
+              outboundVM.outboundOrderOverviewPage.datatable.titles.map(header =>
+                th(header)
+              )
+            )
+          ),
+          tbody(
+            outboundVM.outboundOrderOverviewPage.datatable.orders.map(order =>
+              tr(
+                td(
+                  { class: "px-3" },
+                  cdsCheckbox({ checked: order.selected ?? false })),
+                td({ class: "text-id", style: 'width: 13rem;' }, 'id'),
+                td({ style: 'width: 13rem;' },
+                  format(
+                    new Date(order.createdOn),
+                    'dd MMMM yyyy, HH:mm'
+                  )
+                ),
+                td({ style: 'width: 13rem;' }, format(
+                  new Date(order.rft),
+                  'dd MMMM yyyy, HH:mm'
+                )),
+                td(
+                  { style: 'width: 13rem;', class: order.timeliness ? 'text-red' : '' },
+                  order.timeliness ? `+${order.timeliness}m` : '--'
+                ),
+                td({ style: 'width: 13rem;' }, order.status)
+              )
+            )
+          )
+        )
+      ),
+      ul({ class: 'flex items-center gap-2', style: 'margin-left:auto' },
+        li(
+          button({ class: 'flex items-center' },
+            'Rows per page: 10', Icon('Close32', { slot: 'icon' }),
+          )),
+        li('1 - 10 OF 10'),
+        li(
+          cdsIconButton(
+            { kind: 'first' },
+            Icon('PageFirst32', { slot: 'icon' }),
+          ),
+        ),
+        li(
+          cdsIconButton(
+            { kind: 'first' },
+            Icon('ChevronLeft32', { slot: 'icon' }),
+          ),
+        ),
+        li(
+          cdsIconButton(
+            { kind: 'first' },
+            Icon('ChevronRight32', { slot: 'icon' }),
+          ),
+        ),
+        li(
+          cdsIconButton(
+            { kind: 'first' },
+            Icon('PageLast32', { slot: 'icon' }),
+          ),
+        )
+      ),
+    )
+  )
+)
+
+document.addEventListener('DOMContentLoaded', () => {
+  const leftChart = document.getElementById('leftChart');
+  const rightChart = document.getElementById('rightChart');
+
+  const data = [
+    {
+      group: 'Dataset 1',
+      date: '2023-01-01',
+      value: 10000
+    },
+    {
+      group: 'Dataset 1',
+      date: '2023-01-02',
+      value: 65000
+    },
+    {
+      group: 'Dataset 1',
+      date: '2023-01-03',
+      value: 30000
+    },
+    {
+      group: 'Dataset 1',
+      date: '2023-01-06',
+      value: 49213
+    },
+    {
+      group: 'Dataset 1',
+      date: '2023-01-07',
+      value: 51213
+    },
+    {
+      group: 'Dataset 2',
+      date: '2023-01-01',
+      value: 8000
+    },
+    {
+      group: 'Dataset 2',
+      date: '2023-01-02',
+      value: 67000
+    },
+    {
+      group: 'Dataset 2',
+      date: '2023-01-03',
+      value: 15000
+    },
+    {
+      group: 'Dataset 2',
+      date: '2023-01-06',
+      value: 51213
+    },
+    {
+      group: 'Dataset 2',
+      date: '2023-01-07',
+      value: 45213
+    }
+  ]
+
+  const options = {
+    title: 'Vertical grouped bar (time series)',
+    axes: {
+      left: {
+        mapsTo: 'value'
+      },
+      bottom: {
+        mapsTo: 'date',
+        scaleType: 'time'
+      }
+    },
+    height: '200px',
+    width: '400px'
+  }
+
+  new GroupedBarChart(leftChart, {
+    data,
+    options
+  })
+
+  new GroupedBarChart(rightChart, {
+    data,
+    options
+  })
+});

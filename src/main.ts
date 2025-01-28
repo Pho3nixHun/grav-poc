@@ -6,6 +6,7 @@ import { currentPath } from './state/current-path/current-path.state';
 import { alertOverviewApp as materialAlertOverviewApp } from './material-3/main';
 import { outboundOrderOverviewApp as materialOutboundOrderOverviewApp } from './material-3/main';
 import { alertOverviewApp as carbonAlertOverviewApp } from './carbon/main';
+import { outboundOrderOverviewApp as carbonOutboundOrderOverviewApp } from './carbon/main';
 
 const {
   div,
@@ -28,6 +29,10 @@ const demo = () => {
         a(
           { href: '/carbon/alert-overview' },
           'Carbon/Alert Overview'
+        ),
+        a(
+          { href: '/carbon/outbound-order-overview' },
+          'Carbon/Outbound Order Overview'
         )
       )
     case '/material/alert-overview':
@@ -36,6 +41,8 @@ const demo = () => {
       return materialOutboundOrderOverviewApp;
     case '/carbon/alert-overview':
       return carbonAlertOverviewApp;
+    case '/carbon/outbound-order-overview':
+      return carbonOutboundOrderOverviewApp;
   }
   return div('This isn`t the page you`re looking for')
 }

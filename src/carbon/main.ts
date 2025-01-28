@@ -2,7 +2,8 @@ import './carbon.theme.css';
 import '@carbon/web-components/es';
 import van from 'vanjs-core';
 import { AlertItemPriority } from './app.model.ts';
-import { AlertDetailsComponent } from './pages/alert-overview/components/alert-details/alert-details.component.ts'
+
+import { AlertDetailsComponent } from './pages/alert-overview/components/alert-details/alert-details.component.ts';
 import { Icon } from './icon-helper.util.ts';
 import { NavComponent } from './components/nav/nav.component.ts';
 import { SidebarComponent } from './components/sidebar/sidebar.component.ts';
@@ -11,7 +12,6 @@ import { OrderStatus } from './pages/outbound-order-overview/outbound-order-over
 import { format } from "https://esm.sh/date-fns@4.1.0";
 import { GroupedBarChart } from '@carbon/charts'
 import '@carbon/charts/styles.css'
-
 
 const {
   h1,
@@ -417,7 +417,7 @@ const filters = div(
       Icon('Filter16', { slot: 'icon' }),
       span({ slot: 'tooltip-content' }, 'Filter'),
     ),
-  )
+  ),
 );
 
 const sideNav = SidebarComponent(appVM.sidebar);
@@ -446,7 +446,10 @@ const alertList = cdsLayer(
             ),
             cdsOverflowMenu(
               { onclick: (e) => e.stopPropagation(), kind: 'secondary' },
-              Icon('OverflowMenuVertical16', { slot: 'icon', style: 'color: black' }),
+              Icon('OverflowMenuVertical16', {
+                slot: 'icon',
+                style: 'color: black',
+              }),
               span({ slot: 'tooltip-content' }, 'Options'),
               cdsOverflowMenuBody(
                 cdsOverflowMenuItem('Acknowledge'),
@@ -454,31 +457,33 @@ const alertList = cdsLayer(
                 cdsOverflowMenuItem('View details'),
               ),
             ),
-          )
+          ),
         ),
         cdsTileBelowTheFoldContent(
           div(
             { class: 'flex flex-col gap-1 pl-2' },
-            ...item.items.map((subItem) => cdsTile(
-              { class: 'py-2' },
-              div(
-                { class: 'flex flex-row gap-1' },
-                Icon('Warning16', { class: 'text-critical' }),
-                subItem.label,
-              ),
-              div(
-                { class: 'flex flex-row gap-1' },
-                span({ class: 'flex-grow' }, subItem.secondaryLabel),
-                span(RelativeTimePipe(subItem.age)),
-              ),
-            ))
-          )
+            ...item.items.map((subItem) =>
+              cdsTile(
+                { class: 'py-2' },
+                div(
+                  { class: 'flex flex-row gap-1' },
+                  Icon('Warning16', { class: 'text-critical' }),
+                  subItem.label,
+                ),
+                div(
+                  { class: 'flex flex-row gap-1' },
+                  span({ class: 'flex-grow' }, subItem.secondaryLabel),
+                  span(RelativeTimePipe(subItem.age)),
+                ),
+              )
+            ),
+          ),
         ),
-      ),
+      )
     ),
   ),
 );
-const alertDetails = AlertDetailsComponent(appVM.alertOverviewPage.selected)
+const alertDetails = AlertDetailsComponent(appVM.alertOverviewPage.selected);
 
 export const alertOverviewApp = main(
   header,
@@ -486,7 +491,11 @@ export const alertOverviewApp = main(
     { class: 'flex' },
     sideNav,
     cdsStack(
-      { orientation: 'vertical', gap: '6', style: 'padding: 4rem 4rem 0 6rem; width: 100%' },
+      {
+        orientation: 'vertical',
+        gap: '6',
+        style: 'padding: 4rem 4rem 0 6rem; width: 100%',
+      },
       h1(appVM.alertOverviewPage.title),
       filters,
       section(

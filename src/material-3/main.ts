@@ -6,13 +6,15 @@ import '@material/web/labs/segmentedbuttonset/outlined-segmented-button-set.js';
 import '@material/web/labs/card/elevated-card.js';
 import '@material/web/select/outlined-select.js';
 import '@material/web/select/select-option.js';
+import '@material/web/dialog/dialog.js';
 import 'material-symbols';
-import "./material.theme.css";
+import './material.theme.css';
 
 import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
-import { AppComponent } from "./app.component.ts";
-import { AlertItemPriority, AppVM } from "./app.model.ts";
+import { AppComponent } from './app.component.ts';
+import { AlertItemPriority, AppVM } from './app.model.ts';
 import { OrderStatus } from '_/material-3/pages/outbound-order-overview/outbound-order-overview.model.ts';
+import { DialogPage } from '_/material-3/pages/dialog/dialog.page.ts';
 
 if (typescaleStyles.styleSheet === undefined) {
   throw new TypeError('Expected CSSStyleSheet, got undefined');
@@ -351,74 +353,91 @@ const outboundOrderAppVM: AppVM = {
     pageSize: 10,
     charts: ['Total vs closed orders/hour', 'Timeliness/mins'],
     datatable: {
-      titles: ['Order ID', 'Created on', 'RFT', 'Order timeliness', 'Order status'],
+      titles: [
+        'Order ID',
+        'Created on',
+        'RFT',
+        'Order timeliness',
+        'Order status',
+      ],
       orders: [
         {
           selected: false,
           createdOn: 1686278460000,
           rft: 1686282060000,
           timeliness: 10,
-          status: OrderStatus.Picking
+          status: OrderStatus.Picking,
         },
         {
           selected: false,
           createdOn: 1686278520000,
           rft: 1686282120000,
-          status: OrderStatus.Picking
+          status: OrderStatus.Picking,
         },
         {
           selected: false,
           createdOn: 1686278700000,
           rft: 1686282300000,
-          status: OrderStatus.Picking
+          status: OrderStatus.Picking,
         },
         {
           selected: false,
           createdOn: 1686278700000,
           rft: 1686282300000,
-          status: OrderStatus.Picking
+          status: OrderStatus.Picking,
         },
         {
           selected: false,
           createdOn: 1686279000000,
           rft: 1686282600000,
-          status: OrderStatus.Picking
+          status: OrderStatus.Picking,
         },
         {
           selected: false,
           createdOn: 1686279300000,
           rft: 1686282900000,
-          status: OrderStatus.Picking
+          status: OrderStatus.Picking,
         },
         {
           selected: false,
           createdOn: 1686279300000,
           rft: 1686282900000,
-          status: OrderStatus.Picking
+          status: OrderStatus.Picking,
         },
         {
           selected: false,
           createdOn: 1686279300000,
           rft: 1686282900000,
-          status: OrderStatus.Assigned
+          status: OrderStatus.Assigned,
         },
         {
           selected: true,
           createdOn: 1686279360000,
           rft: 1686282960000,
           timeliness: 6,
-          status: OrderStatus.Released
+          status: OrderStatus.Released,
         },
         {
           selected: true,
           createdOn: 1686279360000,
           rft: 1686282960000,
-          status: OrderStatus.Planned
+          status: OrderStatus.Planned,
         },
-      ]
+      ],
     },
-  }
-}
+  },
+};
 
+export const outboundOrderOverviewApp = AppComponent(outboundOrderAppVM);
 
-export const outboundOrderOverviewApp = AppComponent(outboundOrderAppVM)
+export const dialogPage = DialogPage({
+  title: 'Are you sure?',
+  reasons: [
+    'Order is not needed',
+    'Order is incorrect',
+    'Order is a duplicate',
+    'Other',
+  ],
+  cancelLabel: 'Cancel',
+  confirmLabel: 'Confirm',
+});

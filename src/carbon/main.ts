@@ -59,6 +59,7 @@ const {
   'cds-checkbox': cdsCheckbox,
   'cds-date-picker': cdsDatePicker,
   'cds-date-picker-input': cdsDatePickerInput,
+  'cds-tag': cdsTag,
 } = van.tags;
 
 const appVM = {
@@ -639,7 +640,7 @@ const outboundFilters = div(
     { class: 'flex flex-row items-center gap-2' },
     cdsIconButton(
       { kind: 'first' },
-      Icon('ChevronLeft32', { slot: 'icon' }),
+      Icon('ChevronLeft16', { slot: 'icon' }),
     ),
     cdsDatePicker({ label: 'Date range' },
       cdsDatePickerInput({
@@ -649,7 +650,7 @@ const outboundFilters = div(
     ),
     cdsIconButton(
       { kind: 'first' },
-      Icon('ChevronRight32', { slot: 'icon' }),
+      Icon('ChevronRight16', { slot: 'icon' }),
     ),
   ),
   div(
@@ -685,17 +686,17 @@ export const outboundOrderOverviewApp = main(
       { orientation: 'vertical', gap: '6', style: 'padding: 4rem 4rem 0 6rem; width: 100%' },
       h1(outboundVM.outboundOrderOverviewPage.title),
       outboundFilters,
-      section(
-        { class: 'flex flex-row', style: 'justify-content: space-evenly' },
-        div(
-          { id: 'leftChart' }),
-        div(
-          { id: 'rightChart' }),
+      div(
+        { level: '2', class: 'flex flex-row gap-2' },
+        cdsLayer(
+          { id: 'leftChart', level: '2', class: 'flex-1 p-2 px-3' }),
+        cdsLayer(
+          { id: 'rightChart', level: '2', class: 'flex-1 p-2 px-3' }),
       ),
-      section(
-        { class: 'flex flex-row gap-2 surface-high overflow-x-auto' },
+      cdsLayer(
+        { level: '2', class: 'flex flex-row gap-2 surface-high overflow-x-auto' },
         table(
-          { class: 'w-full bg-white ' },
+          { class: 'w-full' },
           thead(
             tr(
               th({ class: "px-3", style: 'width: 6rem;' },
@@ -713,9 +714,13 @@ export const outboundOrderOverviewApp = main(
                   cdsCheckbox({ checked: order.selected ?? false })),
                 td({ class: "text-id", style: 'width: 13rem;' }, 'id'),
                 td({ style: 'width: 13rem;' },
-                  format(
-                    new Date(order.createdOn),
-                    'dd MMMM yyyy, HH:mm'
+                  div(
+                    { class: 'flex flex-row items-center' },
+                    format(
+                      new Date(order.createdOn),
+                      'dd MMMM yyyy, HH:mm'
+                    ),
+                    cdsTag({size: 'md', title: 'Just now', type: 'blue', filter: 'filter' }, 'Just now')
                   )
                 ),
                 td({ style: 'width: 13rem;' }, format(
@@ -734,32 +739,36 @@ export const outboundOrderOverviewApp = main(
       ),
       ul({ class: 'flex items-center gap-2', style: 'margin-left:auto' },
         li(
-          button({ class: 'flex items-center' },
-            'Rows per page: 10', Icon('Close32', { slot: 'icon' }),
-          )),
+          cdsDropdown(
+            { value: '1' },
+            cdsDropdownItem({ value: '1' }, 'Rows per page: 10'),
+            cdsDropdownItem({ value: '2' }, 'Rows per page: 50'),
+            cdsDropdownItem({ value: '3' }, 'Rows per page: 100'),
+          ),
+        ),
         li('1 - 10 OF 10'),
         li(
           cdsIconButton(
             { kind: 'first' },
-            Icon('PageFirst32', { slot: 'icon' }),
+            Icon('PageFirst16', { slot: 'icon' }),
           ),
         ),
         li(
           cdsIconButton(
             { kind: 'first' },
-            Icon('ChevronLeft32', { slot: 'icon' }),
+            Icon('ChevronLeft16', { slot: 'icon' }),
           ),
         ),
         li(
           cdsIconButton(
             { kind: 'first' },
-            Icon('ChevronRight32', { slot: 'icon' }),
+            Icon('ChevronRight16', { slot: 'icon' }),
           ),
         ),
         li(
           cdsIconButton(
             { kind: 'first' },
-            Icon('PageLast32', { slot: 'icon' }),
+            Icon('PageLast16', { slot: 'icon' }),
           ),
         )
       ),
@@ -835,8 +844,17 @@ document.addEventListener('DOMContentLoaded', () => {
         scaleType: 'time'
       }
     },
-    height: '200px',
-    width: '400px'
+    color: {
+      pairing: {
+        option: 2
+      },
+      scale: {
+        'Dataset 1': '#4483AA',
+        'Dataset 2': '#6BACCC'
+      }
+    },
+    height: '300px',
+    width: '400px',
   }
 
   new GroupedBarChart(leftChart, {

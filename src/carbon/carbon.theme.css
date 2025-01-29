@@ -1515,7 +1515,7 @@
     --cds-ai-popover-shadow-outer-02: rgba(0, 0, 0, .04);
     --cds-ai-skeleton-background: #d0e2ff;
     --cds-ai-skeleton-element-background: #4589ff;
-    --cds-background: #ffffff;
+    --cds-background: #f4f4f4;
     --cds-background-active: rgba(141, 141, 141, .5);
     --cds-background-brand: #0f62fe;
     --cds-background-hover: rgba(141, 141, 141, .12);
@@ -3420,4 +3420,14 @@
 body {
     background-color:var(--cds-background, #ffffff);
     color:var(--cds-text-primary, #161616)
+}
+
+cds-layer[level="1"] {
+    background-color: var(--cds-layer-01);
+}
+cds-layer[level="2"] {
+    background-color: var(--cds-layer-02);
+}
+cds-layer[level="3"] {
+    background-color: var(--cds-layer-03);
 }

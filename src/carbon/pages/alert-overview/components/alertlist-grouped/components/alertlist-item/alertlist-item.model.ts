@@ -1,4 +1,4 @@
-import { AlertItemPriority } from "_/material-3/pages/alert-overview/models/alert-priority.emun";
+import { AlertItemPriority } from "../../models/alert-priority.enum.ts";
 
 export interface AlertlistSubItemVM {
   priority: AlertItemPriority;

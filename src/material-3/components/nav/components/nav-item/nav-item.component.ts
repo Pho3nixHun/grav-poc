@@ -1,15 +1,9 @@
-import { NavItemVM } from './nav-item.model.ts';
-import van from 'vanjs-core';
-
-const {
+import { NavItemVM } from "./nav-item.model.ts";
+import {
   li,
-  'md-icon-button': mdIconButton,
-  'md-icon': mdIcon,
-} = van.tags;
+  mdIconButton,
+  mdIcon,
+} from "../../../../../utils/component-helper.util.ts";
 
 export const NavItemComponent = (vm: NavItemVM) =>
-  li(
-    mdIconButton(
-      mdIcon(vm.icon),
-    ),
-  );
+  li(mdIconButton(mdIcon(vm.icon)));

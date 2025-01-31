@@ -1,61 +1,71 @@
-import van from 'vanjs-core';
-import { OutboundOrderOverviewPageVM } from './outbound-order-overview.model.ts';
+import { OutboundOrderOverviewPageVM } from "./outbound-order-overview.model.ts";
+import { OutboundDatatableComponent } from "./components/outbound-datatable/outbound-datatable.component.ts";
+import { OutboundFilters } from "./components/outbound-filters/outbound-filters.component.ts";
+import { OutboundGroupedChartComponent } from "./components/outbound-chart/outbound-chart.component.ts";
+import { groupedChartData } from "./components/outbound-chart/outbound-chart.mock.ts";
+import { groupedChartOptions } from "./components/outbound-chart/outbound-chart.config.ts";
 
-const {
+import { Icon } from "_/carbon/icon-helper.util.ts";
+import {
   main,
+  ul,
+  li,
+  button,
   h1,
-  div,
   section,
-  'md-outlined-segmented-button-set': mdOutlinedSegmentedButtonSet,
-  'md-filled-select': mdFilledSelect,
-  'md-select-option': mdSelectOption,
-  'md-icon': mdIcon,
-  'md-outlined-icon-button': mdOutlinedIconButton,
-} = van.tags;
+  div,
+  cdsIconButton,
+} from "_/utils/component-helper.util.ts";
 
-export const OutboundOrderOverviewPage = (vm: OutboundOrderOverviewPageVM ) =>
+export const OutboundOrderOverviewPage = (vm: OutboundOrderOverviewPageVM) =>
   main(
-    { class: 'flex flex-col flex-grow gap-1 px-3' },
-    h1(
-      { class: 'md-typescale-display-medium' },
-      vm.title,
-    ),
+    { class: "flex flex-col flex-grow gap-1 px-3" },
+    h1(vm.title),
+    OutboundFilters(),
     section(
-      { class: 'flex flex-row items-center' },
-      div(
-        { class: 'flex-grow' },
-        mdOutlinedSegmentedButtonSet(
-          {
-            class: 'max-w-fit',
-          },
-        ),
-      ),
-      div(
-        { class: 'flex flex-row gap-2 items-center' },
-        mdFilledSelect(
-          mdSelectOption(
-            { selected: 'selected' },
-            'Sort by severity ascending',
-          ),
-        ),
-        mdFilledSelect(
-          {
-            label: 'Search',
-          },
-          mdIcon(
-            { slot: 'leading-icon' },
-            'search',
-          ),
-        ),
-        mdOutlinedIconButton(
-          mdIcon(
-            'filter_alt',
-          ),
-        ),
-      ),
+      { class: "flex flex-row", style: "justify-content: space-evenly" },
+      div({ id: "leftChart" }),
+      div({ id: "rightChart" })
     ),
-    section(
-      { class: 'flex flex-row gap-2 surface-high overflow-x-auto' },
-      
-    ),
+    section(OutboundDatatableComponent(vm.datatable)),
+    ul(
+      { class: "flex items-center gap-2", style: "margin-left:auto" },
+      li(
+        button(
+          { class: "flex items-center" },
+          "Rows per page: 10",
+          Icon("Close32", { slot: "icon" })
+        )
+      ),
+      li("1 - 10 OF 10"),
+      li(
+        cdsIconButton({ kind: "first" }, Icon("PageFirst32", { slot: "icon" }))
+      ),
+      li(
+        cdsIconButton(
+          { kind: "first" },
+          Icon("ChevronLeft32", { slot: "icon" })
+        )
+      ),
+      li(
+        cdsIconButton(
+          { kind: "first" },
+          Icon("ChevronRight32", { slot: "icon" })
+        )
+      ),
+      li(cdsIconButton({ kind: "first" }, Icon("PageLast32", { slot: "icon" })))
+    )
   );
+
+document.addEventListener("DOMContentLoaded", () => {
+  OutboundGroupedChartComponent(
+    document.getElementById("leftChart"),
+    groupedChartData,
+    groupedChartOptions
+  );
+  OutboundGroupedChartComponent(
+    document.getElementById("rightChart"),
+    groupedChartData,
+    groupedChartOptions
+  );
+});

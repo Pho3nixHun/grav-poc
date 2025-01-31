@@ -1,8 +1,10 @@
+import { DataTable } from "./components/outbound-datatable.model.ts";
+
 export enum OrderStatus {
-  Picking = 'Picking',
-  Assigned = 'Assigned',
-  Released = 'Released',
-  Planned = 'Planned',
+  Picking = "Picking",
+  Assigned = "Assigned",
+  Released = "Released",
+  Planned = "Planned",
 }
 
 export interface Order {
@@ -19,9 +21,4 @@ export interface OutboundOrderOverviewPageVM {
   charts: string[];
   pageSize: number;
   datatable: DataTable;
-}
-
-export interface DataTable {
-  titles: string[]
-  orders: Order[]
 }

@@ -1,73 +1,56 @@
-import van from 'vanjs-core';
-import { AlertOverviewPageVM } from './alert-overview.model.ts';
-import { AlertListGroupedComponent } from './components/alertlist-grouped/alertlist-grouped.component.ts';
-import { AlertDetailsComponent } from '_/material-3/pages/alert-overview/components/alert-details/alert-details.component.ts';
-
-const {
+import { AlertOverviewPageVM } from "./alert-overview.model.ts";
+import { AlertListGroupedComponent } from "./components/alertlist-grouped/alertlist-grouped.component.ts";
+import { AlertDetailsComponent } from "_/material-3/pages/alert-overview/components/alert-details/alert-details.component.ts";
+import {
   main,
   h1,
-  div,
   section,
-  'md-outlined-segmented-button-set': mdOutlinedSegmentedButtonSet,
-  'md-outlined-segmented-button': mdOutlinedSegmentedButton,
-  'md-filled-select': mdFilledSelect,
-  'md-select-option': mdSelectOption,
-  'md-icon': mdIcon,
-  'md-outlined-icon-button': mdOutlinedIconButton,
-} = van.tags;
+  div,
+  mdIcon,
+  mdOutlinedSegmentedButton,
+  mdOutlinedSegmentedButtonSet,
+  mdFilledSelect,
+  mdSelectOption,
+  mdOutlinedIconButton,
+} from "_/utils/component-helper.util.ts";
 
 export const AlertOverviewPage = (vm: AlertOverviewPageVM) =>
   main(
-    { class: 'flex flex-col flex-grow gap-1 px-3' },
-    h1(
-      { class: 'md-typescale-display-medium' },
-      vm.title,
-    ),
+    { class: "flex flex-col flex-grow gap-1 px-3" },
+    h1({ class: "md-typescale-display-medium" }, vm.title),
     section(
-      { class: 'flex flex-row items-center' },
+      { class: "flex flex-row items-center" },
       div(
-        { class: 'flex-grow' },
+        { class: "flex-grow" },
         mdOutlinedSegmentedButtonSet(
           {
-            class: 'max-w-fit',
+            class: "max-w-fit",
           },
           ...vm.viewModes.map((viewModeVM) =>
-            mdOutlinedSegmentedButton(
-              {
-                label: viewModeVM.label,
-                selected: viewModeVM.selected ? 'true' : '',
-              },
-            )
-          ),
-        ),
+            mdOutlinedSegmentedButton({
+              label: viewModeVM.label,
+              selected: viewModeVM.selected ? "true" : "",
+            })
+          )
+        )
       ),
       div(
-        { class: 'flex flex-row gap-2 items-center' },
+        { class: "flex flex-row gap-2 items-center" },
         mdFilledSelect(
-          mdSelectOption(
-            { selected: 'selected' },
-            'Sort by severity ascending',
-          ),
+          mdSelectOption({ selected: "selected" }, "Sort by severity ascending")
         ),
         mdFilledSelect(
           {
-            label: 'Search',
+            label: "Search",
           },
-          mdIcon(
-            { slot: 'leading-icon' },
-            'search',
-          ),
+          mdIcon({ slot: "leading-icon" }, "search")
         ),
-        mdOutlinedIconButton(
-          mdIcon(
-            'filter_alt',
-          ),
-        ),
-      ),
+        mdOutlinedIconButton(mdIcon("filter_alt"))
+      )
     ),
     section(
-      { class: 'flex flex-row gap-2 surface-high overflow-x-auto' },
+      { class: "flex flex-row gap-2 surface-high overflow-x-auto" },
       AlertListGroupedComponent(vm.alertList),
-      AlertDetailsComponent(vm.selected),
-    ),
+      AlertDetailsComponent(vm.selected)
+    )
   );

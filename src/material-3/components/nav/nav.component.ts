@@ -1,25 +1,19 @@
-import van from 'vanjs-core';
-import { NavVM } from './nav.model.ts';
-import { NavItemComponent } from './components/nav-item/nav-item.component.ts';
+import { NavVM } from "./nav.model.ts";
+import { NavItemComponent } from "./components/nav-item/nav-item.component.ts";
+import { nav, ul, li } from "../../../utils/component-helper.util.ts";
 
-const {
-  nav,
-  ul,
-  li,
-} = van.tags;
-
-export * from './components/nav-item/nav-item.component.ts';
+export * from "./components/nav-item/nav-item.component.ts";
 
 export const NavComponent = (vm: NavVM) =>
   nav(
     {
-      class: 'dark surface px-3',
+      class: "dark surface px-3",
     },
     ul(
       {
-        class: 'flex flex-row',
+        class: "flex flex-row",
       },
-      li({ class: 'flex-grow' }),
-      ...vm.items.map(NavItemComponent),
-    ),
+      li({ class: "flex-grow" }),
+      ...vm.items.map(NavItemComponent)
+    )
   );

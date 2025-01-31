@@ -1,13 +1,11 @@
-import van from "vanjs-core";
 import { OutboundOrderOverviewPageVM } from "./outbound-order-overview.model.ts";
-import { format } from "https://esm.sh/date-fns@4.1.0";
-
-const {
+import { DatePipe } from "_/pipes/date-time/date-time.pipe.ts";
+import {
   main,
-  h1,
   div,
   section,
   span,
+  h1,
   table,
   thead,
   th,
@@ -15,18 +13,17 @@ const {
   tr,
   td,
   ul,
-  button,
   li,
-  "md-menu": mdMenu,
-  "md-menu-item": mdMenuItem,
-  "md-checkbox": mdCheckbox,
-  "md-outlined-segmented-button-set": mdOutlinedSegmentedButtonSet,
-  "md-filled-select": mdFilledSelect,
-  "md-select-option": mdSelectOption,
-  "md-icon-button": mdIconButton,
-  "md-icon": mdIcon,
-  "md-outlined-icon-button": mdOutlinedIconButton,
-} = van.tags;
+  button,
+  mdIcon,
+  mdMenu,
+  mdMenuItem,
+  mdCheckbox,
+  mdIconButton,
+  mdFilledSelect,
+  mdOutlinedIconButton,
+  mdOutlinedSegmentedButtonSet,
+} from "_/utils/component-helper.util.ts";
 
 export const OutboundOrderOverviewPage = (vm: OutboundOrderOverviewPageVM) =>
   main(
@@ -60,16 +57,12 @@ export const OutboundOrderOverviewPage = (vm: OutboundOrderOverviewPageVM) =>
         ),
         mdOutlinedIconButton(mdIcon("filter_alt")),
         span(
-          { style: 'position: relative' },
+          { style: "position: relative" },
           mdOutlinedIconButton({ id: "usage-anchor" }, mdIcon("more_horiz")),
           mdMenu(
-            { anchor: 'usage-anchor', id: "usage-menu" },
-            mdMenuItem(
-              div("Rush Order")
-            ),
-            mdMenuItem(
-              div("Cancel Order")
-            )
+            { anchor: "usage-anchor", id: "usage-menu" },
+            mdMenuItem(div("Rush Order")),
+            mdMenuItem(div("Cancel Order"))
           )
         )
       )
@@ -113,14 +106,8 @@ export const OutboundOrderOverviewPage = (vm: OutboundOrderOverviewPageVM) =>
                 mdCheckbox({ checked: order.selected ?? false })
               ),
               td({ class: "text-id", style: "width: 13rem;" }, "id"),
-              td(
-                { style: "width: 13rem;" },
-                format(new Date(order.createdOn), "dd MMMM yyyy, HH:mm")
-              ),
-              td(
-                { style: "width: 13rem;" },
-                format(new Date(order.rft), "dd MMMM yyyy, HH:mm")
-              ),
+              td({ style: "width: 13rem;" }, DatePipe(order.createdOn)),
+              td({ style: "width: 13rem;" }, DatePipe(order.rft)),
               td(
                 {
                   style: "width: 13rem;",
@@ -136,7 +123,13 @@ export const OutboundOrderOverviewPage = (vm: OutboundOrderOverviewPageVM) =>
     ),
     ul(
       { class: "flex", style: "margin-left:auto" },
-      li(button({ class: 'flex items-center' }, "Rows per page: 10", mdIcon("close"))),
+      li(
+        button(
+          { class: "flex items-center" },
+          "Rows per page: 10",
+          mdIcon("close")
+        )
+      ),
       li(mdIconButton(mdIcon("first_page"))),
       li(mdIconButton(mdIcon("keyboard_arrow_left"))),
       li(mdIconButton(mdIcon("keyboard_arrow_right"))),
@@ -144,9 +137,19 @@ export const OutboundOrderOverviewPage = (vm: OutboundOrderOverviewPageVM) =>
     )
   );
 
-document.addEventListener('DOMContentLoaded', () => {
-  const anchorEl = document.body.querySelector('#usage-anchor');
-  const menuEl = document.body.querySelector('#usage-menu');
+document.addEventListener("DOMContentLoaded", () => {
+  const anchorEl =
+    document.body.querySelector<HTMLButtonElement>("#usage-anchor");
+  const menuEl = document.body.querySelector<HTMLDialogElement>("#usage-menu");
 
-  anchorEl.addEventListener('click', () => { menuEl.open = !menuEl.open; });
-})
+  if (!anchorEl) {
+    return;
+  }
+
+  anchorEl.addEventListener("click", () => {
+    if (!menuEl) {
+      return;
+    }
+    menuEl.open = !menuEl.open;
+  });
+});

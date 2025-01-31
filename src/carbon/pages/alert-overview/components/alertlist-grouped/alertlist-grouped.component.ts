@@ -1,12 +1,11 @@
-import van from 'vanjs-core';
-import { AlertlistGroupedVM } from '_/material-3/pages/alert-overview/components/alertlist-grouped/alertlist-grouped.model';
-import { AlertlistItem } from '_/material-3/pages/alert-overview/components/alertlist-grouped/components/alertlist-item/alertlist-item.component';
-
-const {
-  'md-list': mdList,
-} = van.tags;
+import { AlertlistItem } from "./components/alertlist-item/alertlist-item.component.ts";
+import { AlertlistGroupedVM } from "./alertlist-grouped.model.ts";
+import { cdsLayer, cdsStack } from "_/utils/component-helper.util.ts";
 
 export const AlertListGroupedComponent = (vm: AlertlistGroupedVM) =>
-  mdList(
-    ...vm.items.map(AlertlistItem),
+  cdsLayer(
+    cdsStack(
+      { orientation: "vertical", gap: "4" },
+      vm.items.map((item) => AlertlistItem(item))
+    )
   );

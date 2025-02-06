@@ -160,10 +160,3 @@
 .surface-highest {
     background-color: var(--md-sys-color-surface-container-highest);
 }
-
-
-/* FIXES */
-md-text-button, md-outlined-button {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}

@@ -2,7 +2,7 @@ import van from 'vanjs-core';
 import { v4 as uuid } from 'uuid';
 
 import { AlertDetailsVM } from './alert-details.model.ts';
-import { AlertItemPriority } from '_/material-3/pages/alert-overview/models/alert-priority.emun.ts';
+import { Icon } from '_/carbon/icon-helper.util.ts';
 
 const {
   div,
@@ -15,28 +15,29 @@ const {
   tr,
   td,
   p,
-  'md-text-button': mdTextButton,
-  'md-icon': mdIcon,
-  'md-tabs': mdTabs,
-  'md-primary-tab': mdPrimaryTab,
+  'cds-layer': cdsLayer,
+  'cds-tabs': cdsTabs,
+  'cds-tab': cdsTab,
+  'cds-button': cdsButton,
 } = van.tags;
 
 export const AlertDetailsComponent = (vm: AlertDetailsVM) => {
   const id = uuid();
   const activeTab = vm.tabs.find((tabVM) => tabVM.selected);
   const activeTabIndex = activeTab ? vm.tabs.indexOf(activeTab) : 0;
-  return main(
-    { id, class: 'flex flex-col flex-grow p-2 surface' },
+  return cdsLayer(
+    { id, class: 'flex flex-col flex-grow p-2 surface', level: '2' },
     section(
       { class: 'card-header flex flex-row' },
       div(
         { class: 'flex flex-col flex-grow' },
-        h5({ class: 'md-typescale-title-small-bold' }, vm.eyebrow),
-        h2(vm.title),
-        h5({ class: 'md-typescale-title-small' }, vm.subtitle),
+        h5({ class: 'p-none m-none' }, vm.eyebrow),
+        h2({ class: 'p-none m-none' }, vm.title),
+        h5({ class: 'p-none m-none' }, vm.subtitle),
       ),
-      mdTextButton(
-        mdIcon({ slot: 'icon', class: 'minw-' }, 'schedule'),
+      cdsButton(
+        { kind: 'tertiary', size: 'md', tooltipText: 'Tooltip-text' },
+        Icon('Time16', { slot: 'icon'}),
         'Snooze',
       ),
     ),
@@ -44,7 +45,7 @@ export const AlertDetailsComponent = (vm: AlertDetailsVM) => {
       { class: 'card-content flex-grow flex flex-col gap-2 pt-2' },
       div(
         h4(
-          { class: 'md-typescale-title-small-bold' },
+          {  },
           'Description',
         ),
         p(
@@ -52,15 +53,17 @@ export const AlertDetailsComponent = (vm: AlertDetailsVM) => {
           vm.description,
         ),
       ),
-      mdTabs(
+      cdsTabs(
         {
-          activeTabIndex,
+          triggerContent: 'Select an item',
+          value: '0',
         },
         ...vm.tabs.map((tabVM, index) =>
-          mdPrimaryTab(
+          cdsTab(
             {
               id: `${id}-tab-${index}`,
-              ariaControls: `${id}-panel-${index}`,
+              target: `${id}-panel-${index}`,
+              value: `${index}`,
             },
             tabVM.label,
           )
@@ -78,53 +81,54 @@ export const AlertDetailsComponent = (vm: AlertDetailsVM) => {
             { class: 'py-2' },
             tr(
               td(
-                { class: 'pr-3 md-typescale-label-large' },
+                { class: 'pr-3 b-none' },
                 'Priority',
               ),
               td(
+                { class: 'b-none' },
                 div(
-                  { class: 'px-2 flex items-center' },
+                  { class: 'px-2 flex items-center gap-1 b-none' },
                   'Critical',
-                  mdIcon(
-                    { slot: 'icon', class: 'text-critical' },
-                    AlertItemPriority.P1,
-                  ),
+                  Icon('Warning16', { class: 'text-critical' }),
                 ),
               ),
             ),
             tr(
-              td({ class: 'pr-3 md-typescale-label-large' }, 'Order'),
+              td({ class: 'pr-3 b-none' }, 'Order'),
               td(
-                mdTextButton(
-                  { trailingIcon: 'trailingIcon' },
-                  'ORD4567',
-                  mdIcon({ slot: 'icon' }, 'open_in_new'),
+                { class: 'b-none' },
+                cdsButton(
+                  { kind: 'tertiary', size: 'sm', tooltipText: 'Tooltip-text' },
+                  'Button-label',
+                  Icon('Launch16', { slot: 'icon'}),
                 ),
               ),
             ),
             tr(
-              td({ class: 'pr-3 md-typescale-label-large' }, 'Load'),
+              td({ class: 'pr-3 b-none' }, 'Load'),
               td(
-                mdTextButton(
-                  { trailingIcon: 'trailingIcon' },
-                  '125453535',
-                  mdIcon({ slot: 'icon' }, 'open_in_new'),
+                { class: 'b-none' },
+                cdsButton(
+                  { kind: 'tertiary', size: 'sm', tooltipText: 'Tooltip-text' },
+                  'Button-label',
+                  Icon('Launch16', { slot: 'icon'}),
                 ),
               ),
             ),
             tr(
-              td({ class: 'pr-3 md-typescale-label-large' }, 'Package'),
+              td({ class: 'pr-3 b-none' }, 'Package'),
               td(
-                mdTextButton(
-                  { trailingIcon: 'trailingIcon' },
-                  'PSD245678945',
-                  mdIcon({ slot: 'icon' }, 'open_in_new'),
+                { class: 'b-none' },
+                cdsButton(
+                  { kind: 'tertiary', size: 'sm', tooltipText: 'Tooltip-text' },
+                  'Button-label',
+                  Icon('Launch16', { slot: 'icon'}),
                 ),
               ),
             ),
           ),
           h4(
-            { class: 'md-typescale-title-small-bold' },
+            { class: '-bold' },
             'Instructions for resolving',
           ),
           ...vm.instructions.map((instruction) =>

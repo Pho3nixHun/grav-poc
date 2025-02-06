@@ -13,7 +13,7 @@ export const SidebarComponent = (vm: SidebarVM) =>
   nav(
     { class: 'surface-variant px-1 surface-highest' },
     ul(
-      { class: 'flex flex-col justify-strech' },
+      { class: 'flex flex-col justify-strech p-none' },
       ...vm.items.map(SidebarItemComponent),
     ),
   );

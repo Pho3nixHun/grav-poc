@@ -4,46 +4,54 @@ import {AlertDetailsComponent} from './pages/alert-overview/components/alert-det
 import { Icon } from '_/carbon/icon-helper.util.ts';
 
 const {
-  h1,
   div,
-  main,
-  section,
-  span
+  p,
+  ul,
+  li,
+  b,
+  'cds-modal': cdsModal,
+  'cds-modal-header': cdsModalHeader,
+  'cds-modal-close-button': cdsModalCloseButton,
+  'cds-dropdown': cdsDropdown,
+  'cds-modal-label': cdsModalLabel,
+  'cds-modal-heading': cdsModalHeading,
+  'cds-modal-body': cdsModalBody,
+  'cds-modal-body-content': cdsModalBodyContent,
+  'cds-dropdown-item': cdsDropdownItem,
+  'cds-modal-footer': cdsModalFooter,
+  'cds-modal-footer-button': cdsModalFooterButton,
+  'cds-button': cdsButton,
 } = van.tags;
-import {
-  cdsModel,
-  cdsModalHeader,
-  cdsModalCloseButton,
-  
-} from '_/carbon/carbon.ts';
 
-/*
-    <cds-modal open prevent-close>
-      <cds-modal-header>
-        <cds-modal-close-button></cds-modal-close-button>
-        <cds-modal-label>Account resources</cds-modal-label>
-        <cds-modal-heading>Add a custom domain</cds-modal-heading>
-      </cds-modal-header>
-      <cds-modal-body>
-        <cds-modal-body-content description>
-          Custom domains direct requests for your apps in this Cloud Foundry
-          organization to a URL that you own. A custom domain can be a shared
-          domain, a shared subdomain, or a shared domain and host.
-        </cds-modal-body-content>
-
-        <cds-dropdown label="Dropdown" title-text="Dropdown">
-          <cds-dropdown-item value="one">One</cds-dropdown-item>
-          <cds-dropdown-item value="two">Two</cds-dropdown-item>
-        </cds-dropdown>
-      
-      </cds-modal-body>
-      <cds-modal-footer>
-        <cds-modal-footer-button kind="secondary"
-          >Cancel</cds-modal-footer-button
-        >
-        <cds-modal-footer-button>Add</cds-modal-footer-button>
-      </cds-modal-footer>
-    </cds-modal>
-*/
-
-export const DialogPage = 
+export const DialogPage = () => cdsModal(
+  { open: 'open', preventClose: 'prevent-close' },
+  cdsModalHeader(
+    cdsModalCloseButton(),
+    cdsModalHeading('Are you sure?'),
+    cdsModalBody(
+      cdsModalBodyContent(
+        { description: 'description' },
+        div(
+          p(`Please confirm the cancellation of the selected outbound order:`),
+          ul(
+            li(`2/2 orders in Planned status`),
+          ),
+          p(
+            b('Note:'),
+            `Canceling the order removes it from planned orders and stops its processing. This action cannot be undone. Provide a reason to proceed.`,
+          ),
+        ),
+      ),
+      cdsDropdown({ label: 'Select a reason', titleText: 'Reason' },
+        cdsDropdownItem({ value: 'one' }, 'Order is not needed'),
+        cdsDropdownItem({ value: 'two' }, 'Order is incorrect'),
+        cdsDropdownItem({ value: 'two' }, 'Order is duplicate'),
+        cdsDropdownItem({ value: 'two' }, 'Other'),
+      )
+    ),
+    cdsModalFooter(
+      cdsModalFooterButton({ kind: 'secondary' }, 'Cancel'),
+      cdsModalFooterButton({ kind: 'primary' }, 'Confirm')
+    )
+  )
+);

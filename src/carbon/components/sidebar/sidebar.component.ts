@@ -5,15 +5,16 @@ import { SidebarItemComponent } from './components/sidebar-item/sidebar-item.com
 const {
   'cds-side-nav': cdsSideNav,
   'cds-side-nav-items': cdsSideNavItems,
+  'cds-layer': cdsLayer,
 } = van.tags;
 
 export * from './components/sidebar-item/sidebar-item.component.ts';
 
 export const SidebarComponent = (vm: SidebarVM) =>
-  cdsSideNav(
-    { role: 'navigation', 'collapse-mode': 'rail' },
-    cdsSideNavItems(
-      { role: 'list' },
-      ...vm.items.map(SidebarItemComponent),
-    )
+    cdsSideNav(
+      { role: 'navigation', 'collapse-mode': 'rail', style: '--cds-background: #e9e9ea' },
+      cdsSideNavItems(
+        { role: 'list' },
+        ...vm.items.map(SidebarItemComponent),
+      )
   );

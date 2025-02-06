@@ -144,9 +144,10 @@ export const OutboundOrderOverviewPage = (vm: OutboundOrderOverviewPageVM) =>
     )
   );
 
+/* 
 document.addEventListener('DOMContentLoaded', () => {
   const anchorEl = document.body.querySelector('#usage-anchor');
   const menuEl = document.body.querySelector('#usage-menu');
 
   anchorEl.addEventListener('click', () => { menuEl.open = !menuEl.open; });
-})
+}) */

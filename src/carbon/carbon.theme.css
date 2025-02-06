@@ -3431,3 +3431,16 @@ cds-layer[level="2"] {
 cds-layer[level="3"] {
     background-color: var(--cds-layer-03);
 }
+
+.text-critical {
+    color: var(--cds-support-error, #da1e28);
+}
+.text-warning {
+    color: var(--cds-support-warning, #f1c21b);
+}
+.text-caution {
+    color: var(--cds-support-caution-major, #ff832b);
+}
+.text-info {
+    color: var(--cds-support-info, #0043ce);
+}

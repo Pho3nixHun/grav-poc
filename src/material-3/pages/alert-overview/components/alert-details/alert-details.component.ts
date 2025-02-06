@@ -31,9 +31,9 @@ export const AlertDetailsComponent = (vm: AlertDetailsVM) => {
       { class: 'card-header flex flex-row' },
       div(
         { class: 'flex flex-col flex-grow' },
-        h5({ class: 'md-typescale-title-small-bold' }, vm.eyebrow),
-        h2(vm.title),
-        h5({ class: 'md-typescale-title-small' }, vm.subtitle),
+        h5({ class: 'md-typescale-title-small-bold m-none' }, vm.eyebrow),
+        h2({ class: 'm-none' }, vm.title),
+        h5({ class: 'm-none md-typescale-title-small' }, vm.subtitle),
       ),
       mdTextButton(
         mdIcon({ slot: 'icon', class: 'minw-' }, 'schedule'),
@@ -78,10 +78,11 @@ export const AlertDetailsComponent = (vm: AlertDetailsVM) => {
             { class: 'py-2' },
             tr(
               td(
-                { class: 'pr-3 md-typescale-label-large' },
+                { class: 'pr-3 md-typescale-label-large b-none' },
                 'Priority',
               ),
               td(
+                { class: 'b-none' },
                 div(
                   { class: 'px-2 flex items-center' },
                   'Critical',
@@ -93,8 +94,9 @@ export const AlertDetailsComponent = (vm: AlertDetailsVM) => {
               ),
             ),
             tr(
-              td({ class: 'pr-3 md-typescale-label-large' }, 'Order'),
+              td({ class: 'pr-3 md-typescale-label-large b-none' }, 'Order'),
               td(
+                { class: 'b-none' },
                 mdTextButton(
                   { trailingIcon: 'trailingIcon' },
                   'ORD4567',
@@ -103,8 +105,9 @@ export const AlertDetailsComponent = (vm: AlertDetailsVM) => {
               ),
             ),
             tr(
-              td({ class: 'pr-3 md-typescale-label-large' }, 'Load'),
+              td({ class: 'pr-3 md-typescale-label-large b-none' }, 'Load'),
               td(
+                { class: 'b-none' },
                 mdTextButton(
                   { trailingIcon: 'trailingIcon' },
                   '125453535',
@@ -113,8 +116,9 @@ export const AlertDetailsComponent = (vm: AlertDetailsVM) => {
               ),
             ),
             tr(
-              td({ class: 'pr-3 md-typescale-label-large' }, 'Package'),
+              td({ class: 'pr-3 md-typescale-label-large b-none' }, 'Package'),
               td(
+                { class: 'b-none' },
                 mdTextButton(
                   { trailingIcon: 'trailingIcon' },
                   'PSD245678945',

@@ -11,10 +11,12 @@ import { RelativeTimePipe } from '_/pipes/relative-time/relative-time.pipe.ts';
 import { OrderStatus } from './pages/outbound-order-overview/outbound-order-overview.model.ts';
 import { format } from "https://esm.sh/date-fns@4.1.0";
 import { GroupedBarChart } from '@carbon/charts'
+import { DialogPage } from './pages/dialog/dialog.page.ts';
 import '@carbon/charts/styles.css'
 
 const {
   h1,
+  b,
   div,
   main,
   section,
@@ -393,13 +395,11 @@ const appVM = {
   },
 };
 
-const header = NavComponent(appVM.nav);
-
 const filters = div(
   { class: 'flex flex-row' },
   cdsContentSwitcher(
     { value: '1', style: 'width: fit-content' },
-    cdsContentSwitcherItem({ value: '1', selected: '' }, 'Grouped'),
+    cdsContentSwitcherItem({ value: '1', selected: '', styles: '' }, 'Grouped'),
     cdsContentSwitcherItem({ value: '2' }, 'Flat list'),
   ),
   div({ class: 'flex-1' }),
@@ -427,80 +427,87 @@ const alertList = cdsLayer(
   cdsStack(
     { orientation: 'vertical', gap: '4' },
     ...appVM.alertOverviewPage.alertList.items.map((item) =>
-      cdsExpandableTile(
-        {},
-        cdsTileAboveTheFoldContent(
-          div(
-            { class: 'flex flex-row items-center gap-1 pr-3' },
-            Icon('Warning16'),
-            cdsStack(
-              { orientation: 'vertical' },
-              div(item.label),
-              div(
-                { class: 'supporting-text' },
-                span(`Reported ${RelativeTimePipe(item.reportedOn)}`),
-                ' • ',
-                span(`Updated ${RelativeTimePipe(item.updatedOn)}`),
-                ' • ',
-                span(`Alerts: ${item.items.length}`),
+      cdsLayer(
+        { level: 1 }, 
+        cdsExpandableTile(
+          { style: 'padding: 1rem 0 3.5rem 1rem'},
+          cdsTileAboveTheFoldContent(
+            div(
+              { class: 'flex flex-row items-center gap-1 pr-3' },
+              Icon('Warning16', { class: 'text-critical', style: 'font-size: 24px' }),
+              cdsStack(
+                { orientation: 'vertical' },
+                b(item.label),
+                div(
+                  { class: 'supporting-text' },
+                  span(`Reported ${RelativeTimePipe(item.reportedOn)}`),
+                  ' • ',
+                  span(`Updated ${RelativeTimePipe(item.updatedOn)}`),
+                  ' • ',
+                  span(`Alerts: ${item.items.length}`),
+                ),
               ),
-            ),
-            cdsOverflowMenu(
-              { onclick: (e) => e.stopPropagation(), kind: 'secondary' },
-              Icon('OverflowMenuVertical16', {
-                slot: 'icon',
-                style: 'color: black',
-              }),
-              span({ slot: 'tooltip-content' }, 'Options'),
-              cdsOverflowMenuBody(
-                cdsOverflowMenuItem('Acknowledge'),
-                cdsOverflowMenuItem('Dismiss'),
-                cdsOverflowMenuItem('View details'),
+              cdsOverflowMenu(
+                { onclick: (e) => e.stopPropagation(), kind: 'secondary' },
+                Icon('OverflowMenuVertical16', {
+                  slot: 'icon',
+                  style: 'color: black',
+                }),
+                span({ slot: 'tooltip-content' }, 'Options'),
+                cdsOverflowMenuBody(
+                  cdsOverflowMenuItem('Acknowledge'),
+                  cdsOverflowMenuItem('Dismiss'),
+                  cdsOverflowMenuItem('View details'),
+                ),
               ),
             ),
           ),
-        ),
-        cdsTileBelowTheFoldContent(
-          div(
-            { class: 'flex flex-col gap-1 pl-2' },
-            ...item.items.map((subItem) =>
-              cdsTile(
-                { class: 'py-2' },
-                div(
-                  { class: 'flex flex-row gap-1' },
-                  Icon('Warning16', { class: 'text-critical' }),
-                  subItem.label,
-                ),
-                div(
-                  { class: 'flex flex-row gap-1' },
-                  span({ class: 'flex-grow' }, subItem.secondaryLabel),
-                  span(RelativeTimePipe(subItem.age)),
-                ),
-              )
+          cdsTileBelowTheFoldContent(
+            div(
+              { class: 'flex flex-col gap-1 pl-2' },
+              ...item.items.map((subItem) =>
+                cdsLayer({ level: '2'},
+                cdsTile(
+                  { class: 'mr-2 flex flex-col gap-1', style: '--cds-layout-density-padding-inline-local: 0.5rem' },
+                  div(
+                    { class: 'flex flex-row gap-1 items-center' },
+                    Icon('Warning16', { class: 'text-critical' }),
+                    b(subItem.label),
+                  ),
+                  div(
+                    { class: 'flex flex-row gap-1' },
+                    span({ class: 'flex-grow' }, subItem.secondaryLabel),
+                    span(RelativeTimePipe(subItem.age)),
+                  ),
+                )
+              ),
+              ),
             ),
           ),
-        ),
-      )
+        )
+      ),
     ),
   ),
 );
 const alertDetails = AlertDetailsComponent(appVM.alertOverviewPage.selected);
 
 export const alertOverviewApp = main(
-  header,
+  NavComponent(appVM.nav),
   section(
     { class: 'flex' },
     sideNav,
     cdsStack(
       {
         orientation: 'vertical',
-        gap: '6',
+        gap: '2',
         style: 'padding: 4rem 4rem 0 6rem; width: 100%',
       },
-      h1(appVM.alertOverviewPage.title),
+      h1(
+        b(appVM.alertOverviewPage.title),
+      ),
       filters,
       section(
-        { class: 'flex' },
+        { class: 'flex gap-2 pt-2' },
         alertList,
         alertDetails,
       ),
@@ -676,15 +683,18 @@ const outboundFilters = div(
   )
 )
 
+export const dialogApp = DialogPage()
 
 export const outboundOrderOverviewApp = main(
-  header,
+  NavComponent(appVM.nav),
   section(
     { class: 'flex' },
     outboundSideNav,
     cdsStack(
       { orientation: 'vertical', gap: '6', style: 'padding: 4rem 4rem 0 6rem; width: 100%' },
-      h1(outboundVM.outboundOrderOverviewPage.title),
+      h1(
+        b(outboundVM.outboundOrderOverviewPage.title),
+      ),
       outboundFilters,
       div(
         { level: '2', class: 'flex flex-row gap-2' },

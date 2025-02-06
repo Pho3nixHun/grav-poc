@@ -18,7 +18,9 @@ export const Icon = (
     ...icon,
     attrs: {
       ...icon.attrs,
-      ...attributes
+      ...attributes,
+      width: '1em',
+      height: '1em',
     },
   });
 };
